@@ -5,13 +5,14 @@ import 'package:simple_secure_storage_platform_interface/simple_secure_storage_p
 
 typedef _StorageMap = Map<String, String>;
 
-/// Linux implementation of SimpleSecureStorage using the `org.freedesktop.secrets` D-Bus API.
+/// Linux implementation of [SimpleSecureStoragePlatform] using the
+/// Secret Service API ([`org.freedesktop.secrets`](https://specifications.freedesktop.org/secret-service/latest-single/)).
 class SimpleSecureStorageLinux extends SimpleSecureStoragePlatform {
   /// Registers this class as the default instance of [SimpleSecureStoragePlatform].
   static void registerWith() => SimpleSecureStoragePlatform.instance = SimpleSecureStorageLinux();
 
-  /// Secret Service client (`org.freedesktop.secrets`).
-  final FreeDesktopSecret _client = FreeDesktopSecret();
+  /// Freedesktop Secret Service API client.
+  final _client = SecretServiceClient();
 
   /// Storage identifier.
   String? _dataKey;
